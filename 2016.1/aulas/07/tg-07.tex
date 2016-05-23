@@ -1,0 +1,247 @@
+\documentclass[xcolor=dvipsnames,table]{beamer}
+
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  \definecolor{colortexto}{RGB}{0,0,0}
+ 
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+}
+
+\title{Noções Básicas de Grafos} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Teoria de Grafos \\Bacharelado em Ciência da Computação}
+\date{\textbf{23 de maio de 2016} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+    
+    \begin{frame}{Pensamento}
+		\begin{columns}
+			\column{.4\textwidth}  		
+		  		\begin{center}
+		    		\includegraphics[height=.7\textheight]{images/publio.jpg}
+		  		\end{center}
+			\column{.6\textwidth}  		
+				\begin{block}{Frase}
+					\begin{center}
+						{\large O plano que não pode ser mudado não presta.}
+					\end{center}
+				\end{block}		  		
+		  		\begin{block}{Quem?}
+		  			\begin{center}
+						{\bf Públio Siro (??? - 43 d.C.)} \\Escritor latino da Roma antiga.
+					\end{center}
+				\end{block}
+		\end{columns}
+	\end{frame}
+    
+    \section{Revisão}
+    \subsection{Matriz de adjacências e incidências}
+	\begin{frame}{Matriz de adjacências e incidências}
+		\begin{block}{Definição}
+			Uma {\bf matriz de adjacências} de um grafo $G$ é a matriz $A$ definida da seguinte maneira: para todo vértice $u$ e $v$
+			\begin{center}
+				\includegraphics[width=.5\textwidth]{images/adjacencia.png}
+			\end{center}
+		\end{block}
+		\begin{block}{Definição}
+			Uma {\bf matriz de incidências} de um grafo $G$ é a matriz $M$ definida da seguinte maneira: para todo vértice $u$ e uma aresta $e$
+			\begin{center}
+				\includegraphics[width=.6\textwidth]{images/incidencia.png}
+			\end{center}
+		\end{block}
+	\end{frame}
+    
+    \subsection{Vizinhança}
+	\begin{frame}{Vizinhança}
+		\begin{block}{Vizinhança}
+			\begin{itemize}
+				\item A {\bf vizinhança} de um vértice $v$ em um grafo $G$ é o conjunto de todos os vizinhos de $v$; \pause
+				\item Este conjunto será denotado por $N_G(v)$ (ou simplesmente $N(v$).
+			\end{itemize}
+		\end{block}
+		\begin{exampleblock}{Lembrando...}
+			Seja $G$ um grafo e $v, u \in V(G)$. \\Dizemos que $v$ é vizinho de $u$ se existe uma aresta que os liga.
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{Grau}
+		\begin{block}{Grau}
+			\begin{itemize}
+				\item O {\bf grau} de um vértice $v$ em um grafo $G$ é o número de arestas que incidem em $v$;
+				\item Este valor será denotado por $d_G(v)$ (ou simplesmente $d(v$); 
+				\item Um vértice $v$ é {\bf isolado} se $d(v) = 0$.
+			\end{itemize}
+		\end{block}
+		\begin{block}{Corolário}
+			\begin{itemize}
+				\item $d_G(v) = |N(v)|$.
+			\end{itemize}
+		\end{block}		
+	\end{frame}
+	
+	\begin{frame}[shrink]{Grau mínimo e Grau máximo}
+		\begin{block}{Grau mínimo}
+			$\delta(G) :=  \underset{v \in V(G)}{min} d_G(v)$
+		\end{block} 
+		\begin{block}{Grau máximo}
+			$\Delta(G) :=  \underset{v \in V(G)}{max} d_G(v)$
+		\end{block} 
+		\begin{block}{Média dos graus}
+			$\mu(G) =  \dfrac{1}{|V(G)|} \underset{v \in V(G)}{\sum} d_G(v)$
+		\end{block} 
+		\begin{block}{Corolário}
+			$\mu(G) = \dfrac{2m(G)}{n(G)}$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Grafo regular}
+		\begin{block}{Grafo regular}
+			Um grafo é {\bf regular} se todos os seus vértices têm o mesmo grau, ou seja, se $\delta = \Delta$.
+		\end{block} 
+		\begin{block}{$r$-regular}
+			Um grafo é $r$-regular se $d(v) = r$ para todo vértice $v$.
+		\end{block} 
+		\begin{block}{Grafo cúbico}
+			Um {\bf grafo cúbico} é o mesmo que um grafo 3-regular.
+		\end{block}
+	\end{frame}
+	
+	\section{Caminhos e Circuitos}
+	\begin{frame}[shrink]{Caminhos e Circuitos}
+		\begin{block}{Caminho}
+			Um grafo $G$ é um {\bf caminho} se $V_G$ admite uma permutação $(v_1, v_2, \ldots , v_n)$ tal que
+			\begin{center}
+				$E_G = \{ v_i v_{i +1} : 1 \leq i < n \}$
+			\end{center} \pause
+			\begin{itemize}
+				\item os vértices $v_1$ e $v_n$ são os {\bf extremos} do caminho; \pause
+				\item os demais vértices são {\bf internos}; \pause
+				\item diremos que esse caminho {\bf liga} $v_1$ a $v_n$.
+			\end{itemize}
+		\end{block} \pause
+		\begin{block}{Notação}
+			Podemos denotar um caminho pela sequência representada pelos seus vértices: \pause
+			\begin{center}
+				$v_1 v_2 \ldots v_n$		
+			\end{center}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[shrink]{Caminhos e Circuitos}
+		\begin{block}{Circuito}
+			Um grafo $G$ é um {\bf circuito} se $V_G$ tem 3 ou mais elementos e admite uma permutação $(v_1, v_2, \ldots , v_n)$ tal que
+			\begin{center}
+				$E_G = \{ v_i v_{i +1} : 1 \leq i < n \} \cup \{ v_1 v_n \}$
+			\end{center} 
+		\end{block} \pause
+		\begin{block}{Notação}
+			\begin{itemize}
+				\item Podemos denotar um circuito simplesmente por: \pause
+					\begin{center}
+						$v_1 v_2 \ldots v_n v_1$		
+					\end{center}
+				\item O {\bf comprimento} de um caminho ou circuito $G$ é o número $m(G)$; \pause
+				\item Um {\bf triângulo, quadrado, pentágono {e} hexágono} é o mesmo que um circuito de comprimento 3, 4, 5 e 6 respectivamente.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\section{Subgrafos}
+	\begin{frame}{Subgrafos}
+		\begin{block}{Definição}
+			Um {\bf subgrafo} de um grafo $G$ é qualquer grafo $H$ tal que $V_H \subseteq V_G$ e $E_H \subseteq E_G$.
+		\end{block} \pause
+		\begin{block}{Notações e Nomenclaturas}
+			\begin{itemize}
+				\item É conveniente escrever ``$H \subseteq G$'' para dizer que $H$ é subgrafo de $G$; \pause
+				\item Um subgrafo $H$ de $G$ é {\bf gerador} ({\it abrangente}, para alguns) se $V_H = V_G$; \pause
+				\item Um subgrafo $H$ de $G$ é {\bf próprio} se $V_H \not= V_G$ ou $E_H \not= E_G$ (notação: $H \subset G$).
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Subgrafos}
+		\begin{block}{Subgrafo induzido - $G[X]$}
+			O subgrafo de $G$ {\bf induzido} por um subconjunto $X$ de $V_G$ é o grafo $(X, F)$ em que $F$ é o conjunto $E_G \cap X^{(2)}$. \\Esse subgrafo é denotado por $G[X]$.
+		\end{block} \pause
+		\begin{block}{$G - X$}
+			Para qualquer subconjunto $X$ de $V_G$, \\denotaremos por $G - X$ o subgrafo $G[V_G \setminus X]$.
+		\end{block} \pause
+		\begin{block}{$G - v$}
+			Uma abreviação para $G - \{ v \}$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Subgrafos}
+		\begin{block}{$G - a$}
+			Uma abreviação para o grafo $(V_G, E_G \setminus \{ a \})$.
+		\end{block} \pause
+		\begin{block}{$G - A$}
+			Se $A$ é um subconjunto de $E_G$, então $G - A$ é uma abreviação para o grafo $(V_G, E_G \setminus A)$.
+		\end{block} \pause
+		\begin{block}{Corolário}
+			$G - A$ é um grafo gerador de $G$.
+		\end{block}
+	\end{frame}
+    
+    \begin{frame}{Bônus (0,5 pt)}
+		\begin{block}{Desafio}
+			\begin{itemize}
+				\item Quanto valem os parâmetros $m$, $\delta$, e $\Delta$ de \\uma roda com $n$ vértices? (ver E 1.76); 
+                \item Candidaturas até dia 24 de maio, 13h30; 
+                \item Apresentação e resposta por escrito $\rightarrow$ \\(07 de junho, 15h30); 
+                \item 20 minutos de apresentação.
+			\end{itemize}
+		\end{block} 	
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
