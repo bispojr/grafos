@@ -30,14 +30,14 @@
   \usetheme{Warsaw}
 }
 
-\title{União e Intersecção de Grafos} 
+\title{Grafos Bipartidos} 
 
 \author{
   Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
   } 
  \institute{
   Teoria de Grafos \\Bacharelado em Ciência da Computação}
-\date{\textbf{06 de junho de 2016} }
+\date{\textbf{07 de junho de 2016} }
 
 \logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
 
@@ -59,78 +59,6 @@
 		%\tableofcontents[hideallsubsections]
 	\end{frame}
 	
-	\section{Pensamento}
-	\begin{frame}{Pensamento}
-  		\begin{center}
-    		\includegraphics[width=7cm]{images/pensamento.png}
-  		\end{center}
-	\end{frame}
-	
-	\begin{frame}{Pensamento}
-		\begin{columns}
-			\column{.4\textwidth}  		
-		  		\begin{center}
-		    		\includegraphics[height=.5\textheight]{images/ali.jpg}
-		  		\end{center}
-			\column{.6\textwidth}  		
-				\begin{block}{Frase}
-					\begin{center}
-						{\large O impossível não é um fato, impossível é uma opinião.}
-					\end{center}
-				\end{block}		  		
-		  		\begin{block}{Quem?}
-		  			\begin{center}
-						{\bf Muhammad Ali (1942-2016)} \\Pugilista e ativista estadunidense.
-					\end{center}
-				\end{block}
-		\end{columns}
-	\end{frame}
-    
-    \section{Revisão}
-	\subsection{Grafos Conexos e Componentes}
-	\begin{frame}{Grafos Conexos}
-		\begin{block}{Definição}
-			Um grafo é {\bf conexo} se, para qualquer par $\{v,w\}$ de seus vértices, existe um caminho com extremos $v$ e $w$.
-		\end{block}
-		\begin{block}{Subgrafo conexo maximal}
-			Um subgrafo conexo $H$ de um grafo $G$ é maximal se $H$ não é subgrafo próprio de algum subgrafo conexo de $G$.
-		\end{block}
-		\begin{block}{Componente}
-			Um {\bf componente} (ou {\bf componente conexo}) de um grafo $G$ é qualquer subgrafo conexo maximal de $G$.
-		\end{block}
-	\end{frame}
-	
-	\begin{frame}{Grafos Conexos}
-		\begin{block}{Corolário 1}
-			Cada vértice de um grafo pertence a um e um só componente.
-		\end{block}
-		\begin{block}{Corolário 2}
-			 Um grafo é conexo se e somente se tem um único componente.
-		\end{block}
-	\end{frame}
-	
-	\section{União e Intersecção de Grafos}
-	\begin{frame}{União e Intersecção de Grafos}
-		\begin{block}{União}
-			A {\bf união} de dois grafos $G$ e $H$ é o grafo $(V_G \cup V_H, E_G \cup E_H)$. É natural denotar esse grafo por $G \cup H$.
-		\end{block} \pause
-		\begin{block}{Intersecção}
-			A {\bf intersecção} de dois grafos $G$ e $H$ é o grafo $(V_G \cap V_H, E_G \cap E_H)$. É natural denotar esse grafo por $G \cap H$.
-		\end{block} \pause
-		\begin{alertblock}{Alguns cuidados...}
-			Para evitar grafos sem vértices, só trataremos da interação $G \cap H$ se $V_G \cap V_H$ não for vazio.
-		\end{alertblock}
-	\end{frame}
-	
-	\begin{frame}{União e Intersecção de Grafos}
-		\begin{block}{Grafos disjuntos}
-			Dois grafos $G$ e $H$ são {\bf disjuntos} se os conjuntos $V_G$ e $V_H$ são disjuntos.
-		\end{block} \pause
-		\begin{block}{Corolário}
-		 	Se $G$ e $H$ são disjuntos, então $E_G$ e $E_H$ são disjuntos.
-		\end{block}
-	\end{frame}
-	
 	\begin{frame}{Bônus (0,5 pt)}
 		\begin{block}{Desafio}
 			\begin{itemize}
@@ -144,6 +72,94 @@
 			FEOFILOFF, P. {\bf Exercícios de Teoria dos Grafos}, \\
 			BCC, IME-USP, 2012. 
 		\end{block}	
+	\end{frame}
+	
+	\section{Pensamento}
+	\begin{frame}{Pensamento}
+  		\begin{center}
+    		\includegraphics[width=7cm]{images/pensamento.png}
+  		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Pensamento}
+		\begin{columns}
+			\column{.4\textwidth}  		
+		  		\begin{center}
+		    		\includegraphics[width=.9\textwidth]{images/socrates.jpg}
+		  		\end{center}
+			\column{.6\textwidth}  		
+				\begin{block}{Frase}
+					\begin{center}
+						{\large Mas eis a hora de partir: eu para morte, vós para a vida. Quem de nós segue o melhor rumo ninguém o sabe, exceto os deuses.}
+					\end{center}
+				\end{block}		  		
+		  		\begin{block}{Quem?}
+		  			\begin{center}
+						{\bf Sócrates (??? - 399 a.C.)} \\Filósofo grego.
+					\end{center}
+				\end{block}
+		\end{columns}
+	\end{frame}
+    
+    \section{Revisão}
+	\subsection{União e Intersecção de Grafos}
+	\begin{frame}{União e Intersecção de Grafos}
+		\begin{block}{União}
+			A {\bf união} de dois grafos $G$ e $H$ é o grafo $(V_G \cup V_H, E_G \cup E_H)$. É natural denotar esse grafo por $G \cup H$.
+		\end{block}
+		\begin{block}{Intersecção}
+			A {\bf intersecção} de dois grafos $G$ e $H$ é o grafo $(V_G \cap V_H, E_G \cap E_H)$. É natural denotar esse grafo por $G \cap H$.
+		\end{block}
+		\begin{alertblock}{Alguns cuidados...}
+			Para evitar grafos sem vértices, só trataremos da interação $G \cap H$ se $V_G \cap V_H$ não for vazio.
+		\end{alertblock}
+	\end{frame}
+	
+	\begin{frame}{União e Intersecção de Grafos}
+		\begin{block}{Grafos disjuntos}
+			Dois grafos $G$ e $H$ são {\bf disjuntos} se os conjuntos $V_G$ e $V_H$ são disjuntos.
+		\end{block}
+		\begin{block}{Corolário}
+		 	Se $G$ e $H$ são disjuntos, então $E_G$ e $E_H$ são disjuntos.
+		\end{block}
+	\end{frame}
+	
+	\section{Grafos Bipartidos}
+	\begin{frame}{Grafo Bipartido}
+		\begin{block}{Definição}
+			Um grafo $G$ é {\bf bipartido} se existe uma bipartição $\{U, W \}$ de $V_G$ tal que toda aresta de $G$ tem uma ponta em $U$ e outra em $W$.
+		\end{block} \pause
+		\begin{block}{Lembrando... Bipartição!}
+			Uma bipartição de um conjunto $V$ é um par $\{U, W\}$ de conjuntos não vazios tal que $U \cup W = V$ e $U \cap W = \emptyset$.
+		\end{block} \pause
+		\begin{block}{Notação}
+			\begin{itemize}
+				\item Para explicitar a partição, podemos dizer que o grafo é {\bf $\{ U, W \}$-bipartido}. \pause
+				\item Se $G$ é um grafo $\{ U, W \}$-bipartido, podemos dizer, informalmente, que os elementos de $U$ são os {\bf vértices brancos} e os de $W$ são os {\bf vértices pretos} do grafo.
+			\end{itemize}
+		\end{block} 
+	\end{frame}
+	
+	\begin{frame}{Grafo Bipartido}
+		\begin{block}{Grafo $\{ U, W \}$-bipartido completo}
+			Um grafo $\{U, W \}$-bipartido é {\bf completo} se todo vértice branco é adjacente a todos os vértices pretos. 
+		\end{block} \pause
+		\begin{center}
+			\includegraphics[width=.6\textwidth]{images/bipartido-completo.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Grafo Bipartido}
+		\begin{block}{$K_{p,q}$}
+			Um $K_{p,q}$ é um grafo bipartido completo com \\$p$ vértices brancos e $q$ pretos.
+		\end{block} \pause
+		\begin{block}{Estrela}
+			\begin{itemize}
+				\item Uma {\bf estrela} é um grafo $K_{1,q}$; \pause
+				\item Se $q \geq 2$, o {\bf centro} da estrela é o único vértice que incide em duas ou mais arestas; \pause
+				\item Se $q < 2$, a estrela não tem centro.
+			\end{itemize}
+		\end{block}
 	\end{frame}
 	
 	\begin{frame}
