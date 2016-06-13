@@ -1,0 +1,108 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{jpurple}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+  backgroundcolor=\color{cyan!10}, 
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4,
+  escapeinside=||
+}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional Jataí\\Bacharelado em Ciência da Computação \\Teoria dos Grafos \\Esdras Lins Bispo Jr.}
+
+\title{\sc \huge Segundo Teste}
+
+\date{13 de junho de 2016}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\footnotesize
+
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 05 (cinco) componentes que formarão a média final da disciplina: dois testes, duas provas e exercícios;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & 0,2.T_1 + 0,1.T_2 + 0,4.P_1 + 0,3.P_2 + E \nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P_i$ é a pontuação obtida na prova $i$, e
+		\item $E$ é a pontuação total dos exercícios.
+	\end{itemize}
+	\item O somatório da pontuação de todas as questões desta avaliação é 11,0 (onze) pontos. Isto é um sinônimo de tolerância na correção. Se você por acaso perder 1,5 (um e meio), sua nota será 9,5 (nove e meio);
+	\item O conteúdo exigido compreende os seguintes pontos apresentados no Plano de Ensino da disciplina: (1) Noções Básicas de Grafos, (2) Caminhos e Circuitos, (3) Subgrafos e (4) Grafos conexos e componentes.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+	\fbox{\large Assinatura: \hspace{9cm}}
+\end{center}
+
+\newpage
+
+\normalsize
+
+\begin{enumerate}
+
+	\item (5,0 pt) [E 1.144] Sejam $G$ e $H$ dois grafos conexos tais que $V_G \cap V_H \not= \emptyset$. Mostre que o grafo $G \cup H$ é conexo.
+	
+	\vspace{0.5cm}
+	
+	{\color{blue} {\bf Resposta:} Será provado que, para qualquer par de vértices $(x, y)$, em que $x,y \in V_{G \cup H}$, $x$ está ligado a $y$. Ora, existem quatros casos, a saber:
+		\begin{itemize}
+			\item \underline{$x,y \in V_{G}$}: como $G$ é conexo, então $x$ está ligado a $y$;
+			\item \underline{$x,y \in V_{H}$}: como $H$ é conexo, então $x$ está ligado a $y$;
+			\item \underline{$x \in V_{G}$ e $y \in V_H$}: Como se sabe que $V_G \cap V_H \not= \emptyset$, então existe ao menos um vértice $v$ que pertence, ao mesmo tempo, a $V_G$ e a $V_H$. Logo, podemos dizer que $x$ está ligado a $y$, pois $x$ está ligado a $v$ (tendo em vista que $G$ é conexo) e $v$ está ligado a $y$ (tendo em vista que $H$ é conexo);
+			\item \underline{$x \in V_{H}$ e $y \in V_G$}: De forma semelhante ao item anterior, podemos dizer que $x$ está ligado a $y$, pois $x$ está ligado a $v$ (tendo em vista que $H$ é conexo) e $v$ está ligado a $y$ (tendo em vista que $G$ é conexo).
+		\end{itemize}
+		Logo, pode-se afirmar que $G \cup H$ é conexo, pois para qualquer par de vértices $(x, y)$, em que $x,y \in V_{G \cup H}$, $x$ está ligado a $y$  $\blacksquare$
+	}
+	
+	\item (5,0 pt) [E 1.147] Suponha que um subgrafo gerador $H$ de um grafo $G$ é conexo. Mostre que $G$ é conexo.
+	
+	\vspace{0.5cm}
+	
+	{\color{blue} {\bf Resposta:} Se $H$ é um subgrafo gerador de $G$, então $V_H = V_G$. Pode-se afirmar também que $E_H \subseteq E_G$, pois $H$ é um subgrafo de $G$. Ora, pode-se listar dois casos, a saber:
+		\begin{itemize}
+			\item \underline{$E_H = E_G$}: neste caso, $H = G$; logo, se $H$ é conexo, $G$ também é conexo;
+			\item \underline{$E_H \not= E_G$}: neste caso, $H \not= G$ e $m_H < m_G$. É verdade que $H$ é diferente de $G$ apenas em relação às arestas (pois $V_H = V_G$)  e todas as arestas de $H$ estão em $G$. Logo, se $H$ é conexo, $G$ também é conexo, pois qualquer aresta em $E_G \setminus E_H$ apenas colabora para tornar $G$ mais fortemente conexo.
+		\end{itemize}
+		Logo, se um subgrafo gerador $H$ de um grafo $G$ é conexo, então $G$ é conexo $\blacksquare$
+	}
+	\end{enumerate}
+\end{document}
