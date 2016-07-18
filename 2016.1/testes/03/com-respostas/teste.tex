@@ -1,0 +1,165 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{jpurple}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+  backgroundcolor=\color{cyan!10}, 
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4,
+  escapeinside=||
+}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional Jataí\\Bacharelado em Ciência da Computação \\Teoria dos Grafos \\Esdras Lins Bispo Jr.}
+
+\title{\sc \huge Terceiro Teste}
+
+\date{28 de junho de 2016}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\footnotesize
+
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 05 (cinco) componentes que formarão a média final da disciplina: dois testes, duas provas e exercícios;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + 0,1.E \nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $E$ é a pontuação total dos exercícios.
+	\end{itemize}
+	\item O somatório da pontuação de todas as questões desta avaliação é 11,0 (onze) pontos. Isto é um sinônimo de tolerância na correção. Se você por acaso perder 1,5 (um e meio), sua nota será 9,5 (nove e meio);
+	\item O conteúdo exigido compreende os seguintes pontos apresentados no Plano de Ensino da disciplina: (5) Cortes e Pontes, (6) Árvores, (9) Planaridade e (10) Outros tópicos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+	\fbox{\large Assinatura: \hspace{9cm}}
+\end{center}
+
+\newpage
+
+\normalsize
+
+\begin{enumerate}
+
+	\item (5,0 pt) [E 1.110] Responda, justificando a sua resposta:
+		\begin{enumerate}
+			\item Suponha que todos os vértices de um grafo $G$ têm grau par. É verdade que d($X$) é par para todo subconjunto $X$ de $V_G$?
+			
+	\vspace{0.3cm}
+	
+	{\color{verde}
+		R - Sim, é verdade. Será provado por indução que d($X$) é par para todo subconjunto $X$ de $V_G$, se todos os vértices de um grafo $G$ têm grau par. A indução será feita em $|X|$.
+		\begin{itemize}
+			\item {\bf Caso básico 1:} $|X| = 0 \therefore$ Como $\nabla(X) = \emptyset$, então d($X$) = 0 e 0 é par.
+			\item {\bf Caso básico 2:} $|X| = 1 \therefore$ Seja $v$ o único vértice de $X$. Logo $|\nabla(X)|$ será par, pois todos os vértices de $G$ têm grau par. Assim temos que d($X$) é par, pois d($X$) = d($v$).
+			\item {\bf Caso Geral:} $|X| > 1 \therefore$ 
+				\begin{itemize}
+					\item {\bf Hipótese de Indução:} d($X$) é par, para $|X| = k$;
+					\item {\bf Passo da Indução:} d($X'$) é par, para $|X'| = k + 1$ $\therefore$ \\
+					Seja $y$ o vértice que pertence a $X'$ e não pertence a $X$. Podemos calcular d($X'$) desta forma:
+					\begin{center}
+						d($X'$) = d($X$) - $d_X(y)$ + $d_{X'}(y)$
+					\end{center}
+					em que 
+					\begin{itemize}
+						\item $d_X(y)$ é a quantidade de vizinhos de $y$ que estão em $X$, e
+						\item $d_{X'}(y)$ é a quantidade de vizinhos de $y$ que estão em $X'$.
+					\end{itemize}  
+					Ora só há duas possibilidades, tendo em vista que $d(y)$ é par:
+					\begin{enumerate}
+						\item \underline{$d_{X}(y)$ e $d_{X'}(y)$ são pares}: d($X'$) é par, pois 
+						\begin{center}
+							{\sc Par} - {\sc Par} + {\sc Par} = {\sc Par}
+						\end{center} 
+						\item \underline{$d_{X}(y)$ e $d_{X'}(y)$ são ímpares}: d($X'$) é par, pois 
+						\begin{center}
+							{\sc Par} - {\sc Ímpar} + {\sc Ímpar} = {\sc Par}
+						\end{center} 
+					\end{enumerate}
+				\end{itemize}
+		\end{itemize}
+		Logo, provamos que d($X$) é par para todo subconjunto $X$ de $V_G$, se todos os vértices de um grafo $G$ têm grau par $\blacksquare$
+		}
+		
+		\newpage
+		
+			\item Suponha que todos os vértices de um grafo $G$ têm grau ímpar. É verdade que d($X$) é ímpar para todo subconjunto próprio e não vazio $X$ de $V_G$?
+					
+	\vspace{0.3cm}
+	
+	{\color{verde}
+		R - Não é verdade. Será feita uma prova por absurdo. Suponha que seja verdade a afirmação dada. Seja $G = (V,A)$ um grafo de forma que $V=\{a,b,c,d\}$ e $A=\{ab, cd\}$. Se admitirmos $X = \{ a, c \}$, temos que $X$ é subconjunto próprio e não vazio de $V_G$. Deste modo, d($X$) = 2 e 2 é par (o que é um absurdo). Logo, não é verdade que d($X$) é ímpar para todo subconjunto próprio e não vazio $X$ de $V_G$ $\blacksquare$
+	} 
+		\end{enumerate}
+		
+	\newpage
+	
+	\item (5,0 pt) [E 1.226] Mostre que um grafo é uma floresta se e somente se tem a seguinte propriedade: para todo par $(x, y)$ de seus vértices, existe no máximo um caminho com extremos $x$ e $y$ no grafo.
+	
+	\vspace{0.3cm}
+	
+	{\color{verde}
+		R - A prova será dividida em duas partes: 
+		\begin{enumerate}
+			\item se em um grafo todo par $(x, y)$ de seus vértices tiver no máximo um caminho com extremos $x$ e $y$, então este grafo é uma floresta;
+			\item se um grafo for uma floresta, então, neste grafo, todo par $(x, y)$ de seus vértices tem no máximo um caminho com extremos $x$ e $y$.
+		\end{enumerate}
+		
+		\noindent\rule{12cm}{0.4pt}
+		
+		{\bf Parte (a):} Ora, se todo par $(x, y)$ de vértices de um grafo tiver no máximo um caminho com extremos $x$ e $y$, então este grafo não tem circuitos. Isto é verdade, pois se há circuitos em um grafo, pelo menos um par de vértice tem dois caminhos distintos que os ligam. Se este grafo não tem circuitos, então este grafo é uma floresta.
+		
+		\noindent\rule{12cm}{0.4pt}
+		
+		{\bf Parte (b):} Se um grafo for uma floresta, então este grafo só tem pontes. Logo, para todo par $(x, y)$ de vértices deste grafo pode haver:
+		\begin{itemize}
+			\item Nenhum caminho que liga $x$ a $y$, \\se $x$ e $y$ estiverem em componentes distintos;
+			\item Um caminho, se $x$ e $y$ estiverem no mesmo componente (pois todo componente é conexo).
+		\end{itemize}
+		Pode-se garantir que não há mais de um caminho com extremos $x$ e $y$, pois, se houvesse, então este grafo teria um circuito contendo os vértices $x$ e $y$. Mas isto é impossível, pois este grafo só tem pontes e, consequentemente, não tem circuitos. Logo, neste grafo, todo par $(x, y)$ de seus vértices tem no máximo um caminho com extremos $x$ e $y$.
+		
+		\noindent\rule{12cm}{0.4pt}		
+		
+		Como (a) e (b) são verdadeiras, logo um grafo é uma floresta se e somente se tem a seguinte propriedade: para todo par $(x, y)$ de seus vértices, existe no máximo um caminho com extremos $x$ e $y$ no grafo $\blacksquare$
+	}
+	
+	\end{enumerate}
+\end{document}
