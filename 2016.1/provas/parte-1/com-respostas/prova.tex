@@ -1,0 +1,154 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{jpurple}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+  backgroundcolor=\color{cyan!10}, 
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4,
+  escapeinside=||
+}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional Jataí\\Bacharelado em Ciência da Computação \\Teoria dos Grafos \\Esdras Lins Bispo Jr.}
+
+\title{\sc \huge Prova (Parte 1)}
+
+\date{16 de agosto de 2016}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\footnotesize
+
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 05 (cinco) componentes que formarão a média final da disciplina: dois testes, duas provas e exercícios;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB \nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido compreende os seguintes pontos apresentados no Plano de Ensino da disciplina: (1) Noções Básicas de Grafos, (2) Caminhos e Circuitos, (3) Subgrafos e (4) Grafos conexos e componentes.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+	\fbox{\large Assinatura: \hspace{9cm}}
+\end{center}
+
+\newpage
+
+\normalsize
+
+\begin{enumerate}
+
+	\section*{Primeiro Teste}
+
+	\item (5,0 pt) No vídeo do Prof. Paulo Cezar, é utilizado o conceito de circuito euleriano. Apresente todas as condições necessárias para um determinado grafo conexo conter um circuito euleriano.
+
+	\vspace{0.3cm}	
+	
+	{\color{blue} {\bf R -} Um grafo conexo contém um circuito euleriano se todos os vértices deste grafo têm grau par. }
+	
+	\vspace{0.3cm}
+	
+	\item (5,0 pt) [E 1.68] É verdade que todo grafo 2-regular é um circuito? Justifique a sua resposta.
+	
+	\vspace{0.3cm}	
+	
+	{\color{blue} {\bf R -} Não é verdade. Podemos construir o grafo $G$, com dois componentes $C_1$ e $C_2$, de forma que $C_1$ seja um circuito de comprimento 4 e $C_2$ seja um $K_3$. $G$ é 2-regular, mas não é conexo. Logo não é um circuito. }
+	
+	\newpage
+	
+	\section*{Segundo Teste}
+
+	\item (5,0 pt) [E 1.143] Sejam $P$ e $Q$ dois caminhos tais que $V_P \cap V_Q \not= \emptyset$. Mostre que o
+grafo $P \cup Q$ é conexo.
+
+	\vspace{0.3cm}	
+	
+	{\color{blue} {\bf R -} Se $V_P \cap V_Q \not= \emptyset$, então existe ao menos um vértice $x$ em comum aos dois caminhos. Logo, a partir de dois vértices quaisquer $v$ e $w$ de $P \cup Q$, temos:
+		\begin{itemize}
+			\item \underline{se $v, w \in V_P$:} 
+			\\$v$ liga-se a $w$ por um caminho que é um subcaminho de $P$;
+			\item \underline{se $v, w \in V_Q$:} 
+			\\$v$ liga-se a $w$ por um caminho que é um subcaminho de $Q$;
+			\item \underline{se $v \in V_P$ e $w \in V_Q$:} 
+			\\$v$ liga-se a $x$ por um caminho que é um subcaminho de $P$, e 
+			\\$x$ liga-se a $w$ por um caminho que é um subcaminho de $Q$; 
+			\\logo $v$ liga-se a $w$;
+			\item \underline{se $v \in V_Q$ e $w \in V_P$:} 
+			\\$v$ liga-se a $x$ por um caminho que é um subcaminho de $Q$, e 
+			\\$x$ liga-se a $w$ por um caminho que é um subcaminho de $P$; 
+			\\logo $v$ liga-se a $w$;
+		\end{itemize}
+	Como sempre existe um caminho que liga $v$ a $w$, então $P \cup Q$ é conexo $\blacksquare$
+	
+	}
+	
+	\newpage
+
+	\item (5,0 pt) [E 1.177] Seja $G$ um grafo tal que $\Delta(G) \leq 2$. Descreva os componentes de $G$.
+	
+	\vspace{0.3cm}	
+	
+	{\color{blue} {\bf R -} Podemos listar os três possíveis casos em relação ao valor de $\Delta(G)$:
+		\begin{itemize}
+			\item \underline{$\Delta(G) = 0$:} 
+			\\neste caso, cada componente de $G$ é um $K_1$; 
+			\\e $G$ tem $n$ componentes;
+			\item \underline{$\Delta(G) = 1$:} 
+			\\neste caso, cada componente de $G$ ou é um $K_1$, ou é um $K_2$; 
+			\\e $G$ tem no mínimo $\lceil n/2 \rceil$ componentes e, 
+			\\no máximo, $n -1$ componentes;
+			\item \underline{$\Delta(G) = 2$:} 
+			\\neste caso, cada componente de $G$ é 
+				\begin{itemize}
+					\item um $K_1$,
+					\item um caminho, ou
+					\item um circuito;
+				\end{itemize}
+			e $G$ tem no mínimo um componente e, 
+			\\no máximo, $n - 2$ componentes.
+		\end{itemize}
+	
+	}
+	
+	\end{enumerate}
+\end{document}
