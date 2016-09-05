@@ -1,0 +1,151 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{jpurple}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+  backgroundcolor=\color{cyan!10}, 
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4,
+  escapeinside=||
+}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional Jataí\\Bacharelado em Ciência da Computação \\Teoria dos Grafos \\Esdras Lins Bispo Jr.}
+
+\title{\sc \huge Prova (Parte 2)}
+
+\date{30 de agosto de 2016}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\footnotesize
+
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 05 (cinco) componentes que formarão a média final da disciplina: dois testes, duas provas e exercícios;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + EB \nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EB$ é a pontuação total dos exercícios-bônus.
+	\end{itemize}
+	\item O conteúdo exigido compreende os seguintes pontos apresentados no Plano de Ensino da disciplina: (5) Cortes e Pontes, (6) Árvores,  (7) Isomorfismo, (8) Coloração, (9) Planaridade e (10) Outros tópicos.
+\end{itemize}
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+	\fbox{\large Assinatura: \hspace{9cm}}
+\end{center}
+
+\newpage
+
+\normalsize
+
+\begin{enumerate}
+
+	\section*{Terceiro Teste}
+
+	\item (5,0 pt) [E 1.106] Encontre o menor corte não trivial que puder no grafo do bispo $t$-por-$t$.
+
+	\vspace{0.3cm}
+
+	{\color{blue}
+		{\bf R -} Seja $X$ o conjunto de vértices associado ao menor corte não trivial no grafo do bispo $t$-por-$t$, para $t > 1$. $X$ é formado (i) por todas as casas pretas, ou (ii) por todas as casas brancas do tabuleiro. Assim, $\nabla (X) = \emptyset$. Isto é verdade, pois o grafo do bispo $t$-por-$t$, para $t > 1$, tem dois componentes: o primeiro com seus vértices apenas de casas pretas, e o segundo com seus vértices apenas de casas brancas.
+	}	
+
+	\item (5,0 pt) [E 1.201] Suponha que todos os vértices de um grafo $G$ têm grau par. Mostre que G não tem pontes.
+	
+	\vspace{0.3cm}
+
+	{\color{blue}
+		{\bf Prova:} $G$ pode ter um ou vários componentes. Cada componente de $G$ mantém as seguintes propriedades: 
+		\begin{itemize}
+			\item é conexo (pois todo componente é um subgrafo conexo maximal); e
+			\item todos os vértices têm grau par (pois se para $G$ isto é verdade, continua sendo verdade para cada um de seus componentes).
+		\end{itemize}
+		Ora, se um grafo mantém as duas propriedades acima, então este grafo contém um circuito euleriano (circuito que contém todas as arestas deste grafo). Como toda a aresta de qualquer componente pertence a um circuito, logo é impossível que alguma aresta de $G$ seja ponte. Logo, $G$ não tem pontes $\blacksquare$
+	}
+	
+	\section*{Quarto Teste}
+
+	\item (5,0 pt) [E 5.4] Suponha que $X$ e $Y$ são conjuntos estáveis maximais de um grafo. É verdade que $X$ e $Y$ são disjuntos (ou seja, que $X \cap Y = \emptyset$)?
+	
+	\vspace{0.3cm}
+
+	{\color{blue}
+		{\bf R -} Não, não é verdade. Seja $G$ o circuito $v_1v_2v_3v_4v_5v_1$. $G$ tem ao menos dois conjuntos estáveis maximais que contém $v_1$: $X = \{ v_1, v_3 \}$ e $Y = \{ v_1, v_4 \}$. Como $v_1$ é comum a $X$ e a $Y$, logo $X \cap Y \not= \emptyset$.
+	}
+
+\newpage
+
+	\item (5,0 pt) [DG 1.4 (Adaptação)] A função {\tt DIGRAPHcopy()} abaixo deveria receber um digrafo, criar uma cópia do digrafo, e devolver a cópia. Entretanto, há, ao menos, três erros nesta função. Identifique-os e corrija-os.
+	
+	\begin{lstlisting}
+Digraph DIGRAPHcopy (Digraph g) {
+	
+	Digraph h;
+	int i, j;
+	
+	h = DIGRAPHinit(g->A);
+	
+	for(i=0; i<g->V; i++){
+		for(j=0; j<g->A; j++){
+			g->adj[i][j] = h->adj[i][j];
+		}	
+	}
+	
+	return h;
+}
+\end{lstlisting}
+
+	\vspace{0.3cm}
+
+	{\color{blue}
+		{\bf R -} Listamos os três erros a seguir:
+		\begin{itemize}
+			\item (linha 6) - deveria ser {\tt h = DIGRAPHinit(g->V);}\\
+			pois {\tt DIGRAPHinit} recebe como parâmetro o número de vértices do digrafo;
+			\item (linha 9) - deveria ser {\tt for(j=0; j<g->V; j++)\{}\\
+			pois o segundo laço deve iterar também sobre o número de vértices;
+			\item (linha 10) - deveria ser {\tt h->adj[i][j] = g->adj[i][j];}\\
+			pois é a célula da matriz de adjacência de {\tt h} que deve receber o valor da célula da matriz de adjacência de {\tt g} (e não o oposto).
+		\end{itemize}
+	}
+	
+	\end{enumerate}
+\end{document}
