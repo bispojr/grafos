@@ -1,0 +1,92 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{jpurple}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+  backgroundcolor=\color{cyan!10}, 
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4,
+  escapeinside=||
+}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional Jataí\\Bacharelado em Ciência da Computação \\Teoria de Grafos \\Esdras Lins Bispo Jr.}
+
+\title{\sc \huge Primeiro Teste}
+
+\date{16 de maio de 2017}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\footnotesize
+
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e os exercícios de aquecimento;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + 0,1.EA \nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EA$ é a pontuação total dos exercícios de aquecimento.
+	\end{itemize}
+	\item O conteúdo exigido compreende os seguintes pontos apresentados no Plano de Ensino da disciplina: (1) Noções Básicas de Grafos.
+\end{itemize}
+
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+	\fbox{\large Assinatura: \hspace{9cm}}
+\end{center}
+
+\newpage
+
+\normalsize
+
+\begin{enumerate}
+
+	\item (5,0 pt) {\bf [E 1.46]} Mostre que todo grafo com $n$ vértices tem no máximo $n(n - 1)/2$ arestas.\\
+	{ \color{blue} 
+		{\bf Resposta:} Ora pela definição de grafo temos que $A \subseteq V^{(2)}$. Se $A \subseteq V^{(2)}$, então $|A| \leq |V^{(2)}|$. Como sabemos que $|V^{(2)}|=n(n-1)/2$, temos que $|A| \leq n(n-1)/2$. Logo todo grafo com $n$ vértices tem no máximo $n(n-1)/2$ arestas.
+	}
+	\item (5,0 pt) {\bf [E 1.50]} Quantas arestas tem um grafo $r$-regular com $n$ vértices?\\
+	{ \color{blue} 
+		{\bf Resposta:} Como este grafo é $r$-regular, cada vértice tem grau $r$. Logo, o somatório de todos os graus deste grafo é o produto $rn$. Ora, cada aresta contribui com o valor 2 (dois) para este somatório (pois cada aresta tem duas pontas). Assim, a quantidade de arestas de um grafo $r$-regular com $n$ vértices é a metade deste produto, i.e., $rn/2$.
+	}
+	
+	\end{enumerate}
+\end{document}
