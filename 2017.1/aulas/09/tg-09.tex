@@ -1,0 +1,202 @@
+\documentclass[xcolor=dvipsnames,table]{beamer}
+
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  \definecolor{colortexto}{RGB}{0,0,0}
+ 
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+}
+
+\title{União, interseção e subgrafos} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Teoria de Grafos \\Bacharelado em Ciência da Computação}
+\date{\textbf{06 de junho de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+    
+   \begin{frame}{Pensamento}
+   	\begin{columns}
+   		\column{.4\textwidth}  		
+   		\begin{center}
+   			\includegraphics[height=.6\textheight]{images/trump.jpg}
+   		\end{center}
+   		\column{.6\textwidth}  		
+   		\begin{block}{Frase}
+   			\begin{center}
+   				{\large I will build a great wall (and nobody builds walls better than me, believe me)... and I’ll build them very inexpensively. I will build a great, great wall on our southern border, and I will make Mexico pay for that wall. Mark my words.}
+   			\end{center}
+   		\end{block}		  		
+   		\begin{block}{Quem?}
+   			\begin{center}
+   				{\bf Donald Trump (1946 - ???)} \\Atual presidente estadunidense.
+   			\end{center}
+   		\end{block}
+   	\end{columns}
+   \end{frame}
+    
+    \section{Revisão}
+	
+	\subsection{Grafo Bipartido (Cont.)}
+	
+	\begin{frame}{Grafo Bipartido}
+		\begin{block}{$K_{p,q}$}
+			Um $K_{p,q}$ é um grafo bipartido completo com \\$p$ vértices brancos e $q$ pretos.
+		\end{block}
+		\begin{block}{Estrela}
+			\begin{itemize}
+				\item Uma {\bf estrela} é um grafo $K_{1,q}$; 
+				\item Se $q \geq 2$, o {\bf centro} da estrela é o único vértice que incide em duas ou mais arestas; 
+				\item Se $q < 2$, a estrela não tem centro.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+
+	\subsection{Caminhos e Circuitos}
+	\begin{frame}[shrink]{Caminhos e Circuitos}
+		\begin{block}{Caminho}
+			Um grafo $G$ é um {\bf caminho} se $V_G$ admite uma permutação $(v_1, v_2, \ldots , v_n)$ tal que
+			\begin{center}
+				$E_G = \{ v_i v_{i +1} : 1 \leq i < n \}$
+			\end{center} 
+			\begin{itemize}
+				\item os vértices $v_1$ e $v_n$ são os {\bf extremos} do caminho; 
+				\item os demais vértices são {\bf internos};  
+				\item diremos que esse caminho {\bf liga} $v_1$ a $v_n$.
+			\end{itemize}
+		\end{block}  
+		\begin{block}{Notação}
+			Podemos denotar um caminho pela sequência representada pelos seus vértices: 
+			\begin{center}
+				$v_1 v_2 \ldots v_n$		
+			\end{center}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[shrink]{Caminhos e Circuitos}
+		\begin{block}{Circuito}
+			Um grafo $G$ é um {\bf circuito} se $V_G$ tem 3 ou mais elementos e admite uma permutação $(v_1, v_2, \ldots , v_n)$ tal que
+			\begin{center}
+				$E_G = \{ v_i v_{i +1} : 1 \leq i < n \} \cup \{ v_1 v_n \}$
+			\end{center} 
+		\end{block} 
+		\begin{block}{Notação}
+			\begin{itemize}
+				\item Podemos denotar um circuito simplesmente por:  
+				\begin{center}
+					$v_1 v_2 \ldots v_n v_1$		
+				\end{center}
+				\item O {\bf comprimento} de um caminho ou circuito $G$ é o número $m(G)$; 
+				\item Um {\bf triângulo, quadrado, pentágono {e} hexágono} é o mesmo que um circuito de comprimento 3, 4, 5 e 6 respectivamente.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	\section{União e Intersecção de Grafos}
+	\begin{frame}{União e Intersecção de Grafos}
+		\begin{block}{União}
+			A {\bf união} de dois grafos $G$ e $H$ é o grafo $(V_G \cup V_H, E_G \cup E_H)$. \\É natural denotar esse grafo por $G \cup H$.
+		\end{block} \pause
+		\begin{block}{Intersecção}
+			A {\bf intersecção} de dois grafos $G$ e $H$ é o grafo $(V_G \cap V_H, E_G \cap E_H)$. É natural denotar esse grafo por $G \cap H$.
+		\end{block} \pause
+		\begin{alertblock}{Alguns cuidados...}
+			Para evitar grafos sem vértices, só trataremos da \\interação $G \cap H$ se $V_G \cap V_H$ não for vazio.
+		\end{alertblock}
+	\end{frame}
+	
+	\begin{frame}{União e Intersecção de Grafos}
+		\begin{block}{Grafos disjuntos}
+			Dois grafos $G$ e $H$ são {\bf disjuntos} se \\os conjuntos $V_G$ e $V_H$ são disjuntos.
+		\end{block} \pause
+		\begin{block}{Corolário}
+			Se $G$ e $H$ são disjuntos, então $E_G$ e $E_H$ são disjuntos.
+		\end{block}
+	\end{frame}
+
+	\section{Subgrafos}
+	\begin{frame}{Subgrafos}
+		\begin{block}{Definição}
+			Um {\bf subgrafo} de um grafo $G$ é qualquer grafo $H$ tal que \\$V_H \subseteq V_G$ e $E_H \subseteq E_G$.
+		\end{block} \pause
+		\begin{block}{Notações e Nomenclaturas}
+			\begin{itemize}
+				\item É conveniente escrever ``$H \subseteq G$'' para dizer que \\$H$ é subgrafo de $G$; \pause
+				\item Um subgrafo $H$ de $G$ é {\bf gerador} ({\it abrangente}, para alguns) \\se $V_H = V_G$; \pause
+				\item Um subgrafo $H$ de $G$ é {\bf próprio} \\se $V_H \not= V_G$ ou $E_H \not= E_G$ (notação: $H \subset G$).
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Subgrafos}
+		\begin{block}{Subgrafo induzido - $G[X]$}
+			O subgrafo de $G$ {\bf induzido} por um subconjunto $X$ de $V_G$ é \\o grafo $(X, F)$ em que $F$ é o conjunto $E_G \cap X^{(2)}$. \\Esse subgrafo é denotado por $G[X]$.
+		\end{block} \pause
+		\begin{block}{$G - X$}
+			Para qualquer subconjunto $X$ de $V_G$, \\denotaremos por $G - X$ o subgrafo $G[V_G \setminus X]$.
+		\end{block} \pause
+		\begin{block}{$G - v$}
+			Uma abreviação para $G - \{ v \}$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Subgrafos}
+		\begin{block}{$G - a$}
+			Uma abreviação para o grafo $(V_G, E_G \setminus \{ a \})$.
+		\end{block} \pause
+		\begin{block}{$G - A$}
+			Se $A$ é um subconjunto de $E_G$, então $G - A$ é uma abreviação para o grafo $(V_G, E_G \setminus A)$.
+		\end{block} \pause
+		\begin{block}{Corolário}
+			$G - A$ é um grafo gerador de $G$.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
