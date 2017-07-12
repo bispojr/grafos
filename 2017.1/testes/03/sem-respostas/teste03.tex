@@ -1,0 +1,407 @@
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+% Definindo novas cores
+\definecolor{verde}{rgb}{0.25,0.5,0.35}
+\definecolor{jpurple}{rgb}{0.5,0,0.35}
+% Configurando layout para mostrar codigos Java
+\usepackage{listings}
+\lstset{
+  language=Java,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{jpurple}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{verde},
+  morecomment=[s][\color{blue}]{/**}{*/},
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+  backgroundcolor=\color{cyan!10}, 
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+  tabsize=4
+}
+
+\author{\\Universidade Federal de Goiás (UFG) - Regional Jataí\\Bacharelado em Ciência da Computação \\Teoria de Grafos \\Esdras Lins Bispo Jr.}
+
+\title{\sc \huge Terceiro Teste}
+
+\date{11 de julho de 2017}
+
+\begin{document}
+
+\maketitle
+
+{\bf ORIENTAÇÕES PARA A RESOLUÇÃO}
+
+\footnotesize
+
+\begin{itemize}
+	\item A avaliação é individual, sem consulta;
+	\item A pontuação máxima desta avaliação é 10,0 (dez) pontos, sendo uma das 06 (seis) componentes que formarão a média final da disciplina: quatro testes, uma prova e os exercícios de aquecimento;
+	\item A média final ($MF$) será calculada assim como se segue
+	\begin{eqnarray}
+		MF & = & MIN(10, S) \nonumber \\
+		S & = & (\sum_{i=1}^{4} 0,2.T_i ) + 0,2.P  + 0,1.EA \nonumber
+	\end{eqnarray}
+	em que 
+	\begin{itemize}
+		\item $S$ é o somatório da pontuação de todas as avaliações,
+		\item $T_i$ é a pontuação obtida no teste $i$,
+		\item $P$ é a pontuação obtida na prova, e
+		\item $EA$ é a pontuação total dos exercícios de aquecimento.
+	\end{itemize}
+	\item O conteúdo exigido compreende os seguintes pontos apresentados no Plano de Ensino da disciplina: (3) Subgrafos, (4) Grafos Conexos e Componentes, (5) Cortes e Pontes, e (10) Outros tópicos.
+\end{itemize}
+
+
+\begin{center}
+	\fbox{\large Nome: \hspace{10cm}}
+\end{center}
+
+\newpage
+
+\normalsize
+
+\begin{enumerate}
+
+	\item (5,0 pt) {\bf [E 1.144]} Sejam $G$ e $H$ dois grafos conexos tais que $V_G \cap V_H \not= \emptyset$. Mostre que o grafo $G \cup H$ é conexo.
+	
+	\item (5,0 pt) Na linguagem C, complete as lacunas da função {\tt ehCircuito} conforme apresentada abaixo. Você deve substituir apenas as linhas 6, 12 e 16, pelos trechos de código 1, 2 e 3, respectivamente. O objetivo é que esta função retorne valor 1, se o grafo fornecido como parâmetro for um circuito. O valor de retorno será 0, caso não for.
+
+\begin{lstlisting}[language=C]
+int ehCircuito(Grafo *g){
+
+	if( g->n < 3)
+		return 0;
+	if( g->n == 3)
+		// TRECHO 1
+	else{
+		int vGrau2 = -1;
+		int qtdGrau2 = 0;
+		for(int v=0; v<g->n; v++){
+			if( grau(g,v) == 2){
+				// TRECHO 2
+			}
+		}
+	
+		//TRECHO 3
+		
+		Grafo *h = gMenosV(g, vGrau2);
+		return ehCaminho(h);
+	}
+}\end{lstlisting}
+	
+\end{enumerate}
+
+\newpage
+
+\section{grafos.h}
+
+\begin{lstlisting}[language=C]
+#ifndef GRAFO_H_INCLUDED
+#define GRAFO_H_INCLUDED
+
+#include <stdlib.h>
+
+typedef struct grafo {
+	char *nome;
+	int n;       // Numero de vertices
+	int m;       // Numero de arestas
+	int **adj;   // Ponteiro para a matriz de adjacencias
+} Grafo;
+
+int **gerarMatriz(int n) {
+
+	int i, j;
+	
+	// Aloca um vetor de n ponteiros (do tipo int) na memoria
+	int **m = malloc( n * sizeof (int *));
+	
+	// Para cada ponteiro, aloca n elementos (do tipo int) na memoria
+	for (i = 0; i < n; i++)
+		m[i] = malloc( n * sizeof (int));
+	
+	// Preenche cada celula da matriz com valor 0
+	for (i = 0; i < n; i++)
+		for (j = 0; j < n; j++)
+			m[i][j] = 0;
+	
+	return m;
+}
+
+void inicializar(Grafo *g, char *nome, int n) {
+
+	// Inicializa os parametros da estrutura Grafo
+	g->nome = nome;
+	g->n = n;
+	g->m = 0;
+	g->adj = gerarMatriz(n);
+
+}
+
+void inserirAresta(Grafo *g, int v, int w) {
+
+	// Garantindo que os argumentos estao entre
+	// 0 e n-1 (fechado)
+	if( (v >= 0) && (v < g->n) ){
+		if( (w >= 0) && (w < g->n) ){
+		
+			if (g->adj[v][w] == 0) { // Verifica se a aresta nao existe
+				// E necessario preencher as duas celulas com 1
+				g->adj[v][w] = 1;
+				g->adj[w][v] = 1;
+				g->m++;
+			}
+		}
+	}
+
+}
+
+void removerAresta(Grafo *g, int v, int w) {
+
+// Garantindo que os argumentos estao entre
+	// 0 e n-1 (fechado)
+	if( (v >= 0) && (v < g->n) ){
+		if( (w >= 0) && (w < g->n) ){
+		
+			if (g->adj[v][w] == 1) { // Verifica se a aresta existe
+				// Eh necessario preencher as duas celulas com 0
+				g->adj[v][w] = 0;
+				g->adj[w][v] = 0;
+				g->m--;
+			}
+		}
+	}
+
+}
+
+
+void exibir(Grafo *g) {
+
+	int v, w;
+	
+	printf("\n=================");
+	printf("\n%s", g->nome);
+	printf("\n=================");
+	
+	// Imprime o conjunto de vertices
+	printf("\nV = {");
+	
+	for(v = 0; v < g->n; v++ )
+		printf("%d, ", v);
+	
+	if(g->n > 0)
+		printf("\b\b");
+	printf("}");
+
+
+	// Imprime o conjunto de arestas
+	printf("\nA = {");
+	for (v = 0; v < g->n; v++)
+		for (w = 0; w < g->n; w++)
+			if (g->adj[v][w] == 1) 
+				if (v < w)
+					printf("(%d, %d); ", v, w); 
+	
+	if(g->m > 0)
+		printf("\b\b");
+	printf("}");
+	
+	printf("\n=================\n");
+}
+
+int grau(Grafo *g, int v){
+
+	int soma;
+	
+	if( (v >= 0) && (v < g->n) ){
+		soma = 0;
+		for(int i=0; i<g->n; i++)
+		soma += g->adj[v][i];
+	}
+
+	return soma;
+}
+
+int grauMinimo(Grafo *g){
+
+	int minimo = g->n;
+	
+	for(int i=0; i < g->n; i++){
+	
+		int grauI = grau(g, i);
+		
+		if( grauI < minimo )
+			minimo = grauI;
+	}
+	
+	return minimo;
+}
+
+int grauMaximo(Grafo *g){
+
+	int maximo = -1;
+	
+	for(int i=0; i < g->n; i++){
+	
+		int grauI = grau(g, i);
+		
+		if( grauI > maximo )
+			maximo = grauI;
+	}
+	
+	return maximo;
+}
+
+int ehRegular(Grafo *g){
+
+	if(g->n != 1){
+		int valorGrau = grau(g, 0);
+		
+		for(int i=1; i<g->n; i++)
+			if( grau(g,i) != valorGrau )
+				return 0;
+	}
+	
+	return 1;
+}
+
+int eh3Regular(Grafo *g){
+
+	if(g->n != 1){
+		int valorGrau = grau(g, 0);
+	
+		if(valorGrau != 3)
+			return 0;
+		
+		for(int i=1; i<g->n; i++)
+			if( grau(g,i) != valorGrau )
+				return 0;
+	
+		return 1;
+	}
+	
+	return 0;
+}
+
+Grafo *gMenosV(Grafo *g, int v){
+
+	Grafo *h = malloc(sizeof (Grafo));
+	inicializar(h, "G - v", g->n - 1);
+	
+	for(int i=0; i<g->n; i++){
+	
+		int l = i;
+		
+		if(i == v) continue;
+		else
+		if(i > v)
+			l = i - 1;
+		
+		for(int j=0; j<g->n; j++){
+		
+			int c = j;
+			
+			if(j == v) continue;
+			else
+			if(j > v)
+				c = j - 1;
+			
+			h->adj[l][c] = g->adj[i][j];
+		}
+	}
+
+	return h;
+}
+
+int ehCaminho(Grafo *g){
+
+	if( g->n == 1)
+		return 1;
+	else{
+		//Encontrar um vertice de grau 1 e
+		//contar a qtd de vertices de grau 1.
+		int vGrau1 = -1;
+		int qtdGrau1 = 0;
+		for(int v=0; v<g->n; v++){
+			if( grau(g,v) == 1){
+				vGrau1 = v;
+				qtdGrau1++;
+			}
+		}
+	
+		//Se nao houver vertice de grau 1 ou
+		//se nao houver dois vertices de grau 1, nao eh caminho
+		if( vGrau1 == -1 || qtdGrau1 != 2)
+			return 0;
+		
+		//Criar H = G - v (vertice de grau 1)
+		Grafo *h = gMenosV(g, vGrau1);
+		
+		//Chamada recursiva para H
+		return ehCaminho(h);
+	}
+}
+
+#endif // GRAFO_H_INCLUDED\end{lstlisting}
+
+\newpage
+
+\section{fabrica.h}
+
+\begin{lstlisting}[language=C]
+#ifndef FABRICA_H_INCLUDED
+#define FABRICA_H_INCLUDED
+
+#include <stdlib.h>
+#include "grafo.h"
+
+Grafo *k(int n){
+
+	Grafo *g = malloc(sizeof (Grafo));
+	
+	inicializar(g, "K_x", n);
+	
+	for(int i=0; i<n; i++)
+		for(int j=0; j<n; j++)
+			if(i != j)
+				inserirAresta(g, i, j);
+	
+	return g;
+}
+
+Grafo *caminho(int n){  // Comprimento n-1
+
+	Grafo *g = malloc(sizeof (Grafo));
+	
+	inicializar(g, "Caminho (Comp. x)", n);
+	
+	for(int i=0; i < n-1; i++)
+		inserirAresta(g, i, i+1);
+	
+	return g;
+}
+
+Grafo *circuito(int n){  // Comprimento n-1
+
+	Grafo *g = caminho(n);
+	inserirAresta(g, 0, n-1);	
+	return g;
+}
+
+#endif // FABRICA_H_INCLUDED\end{lstlisting}
+
+\end{document}
