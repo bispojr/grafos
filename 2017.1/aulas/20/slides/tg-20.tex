@@ -1,0 +1,154 @@
+\documentclass[xcolor=dvipsnames,table]{beamer}
+
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  \definecolor{colortexto}{RGB}{0,0,0}
+ 
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+}
+
+\title{Florestas e Árvores} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Teoria de Grafos \\Bacharelado em Ciência da Computação}
+\date{\textbf{09 de agosto de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+    
+   \begin{frame}{Pensamento}
+   	\begin{columns}
+   		\column{.4\textwidth}  		
+   		\begin{center}
+   			\includegraphics[height=.5\textheight]{images/desconhecido.jpg}
+   		\end{center}
+   		\column{.6\textwidth}  		
+   		\begin{block}{Frase}
+   			\begin{center}
+   				{\large A árvore quando está sendo cortada, observa com tristeza que o cabo do machado é de madeira.}
+   			\end{center}
+   		\end{block}		  		
+   		\begin{block}{Quem?}
+   			\begin{center}
+   				{\bf Provérbio Árabe}
+   			\end{center}
+   		\end{block}
+   	\end{columns}
+   \end{frame}
+    
+    \section{Revisão}
+	\subsection{Pontes}
+	\begin{frame}{Pontes}
+		\begin{block}{Definição}
+			Uma {\bf ponte} ($bridge$) em um grafo $G$ é qualquer aresta $e$ tal que 
+			\begin{center}
+				$c(G - e) > c(G)$,  
+			\end{center}
+			ou seja, $G - e$ tem mais componentes que $G$.				
+		\end{block}  
+		\begin{block}{Outros nomes}
+			\begin{itemize}
+				\item {\bf istmo} ({\it isthmus}), ou 
+				\item {\bf aresta de corte} ({\it cut edge}).
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Pontes}
+		\begin{block}{Corolário}
+			Uma aresta $a$ é ponte se e somente se o conjunto $\{ a \}$ é um corte do um grafo.
+		\end{block}  
+		\begin{block}{Pontes $\times$ Circuitos}
+			Em qualquer grafo, toda aresta é uma ponte ou pertence a um circuito, mas não ambos (E. 1.199).
+		\end{block}
+	\end{frame}
+
+	\section{Florestas e Árvores}
+	\begin{frame}{Florestas e Árvores}
+		\begin{block}{Floresta}
+			\begin{itemize}
+				\item Uma {\bf floresta} ($forest$) é um grafo sem circuitos. \pause
+				\item Também chamado de grafo acíclico. \pause
+				\item Um grafo é uma floresta se cada uma de suas arestas é uma ponte. 
+			\end{itemize}
+		\end{block} \pause
+		\begin{block}{Árvore}
+			Uma {\bf árvore} ($tree$) é uma floresta conexa. 
+		\end{block} \pause
+		\begin{block}{Corolário 1}
+			Cada componente de uma floresta é uma árvore.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Florestas e Árvores}
+		\begin{block}{Folha}
+			Uma {\bf folha} ($leaf$) de uma floresta é qualquer vértice da floresta que tenha grau 1.
+		\end{block} \pause
+		\begin{block}{Corolário 2}
+			Um grafo $G$ é uma floresta se e somente se $m(G) = n(G) - c(G)$.
+		\end{block}
+	\end{frame}
+	
+	\section{Planaridade}
+	\begin{frame}{Grafos Planares}
+		\begin{block}{Definição (informal)}
+			Um grafo é {\bf planar} se pode ser desenhado no plano sem que as linhas que representam arestas se cruzem.
+		\end{block} \pause
+		\begin{block}{Exercícios}
+			\begin{itemize}
+				\item Todo caminho é planar? Todo circuito é planar? \pause
+				\item Toda grade é planar? \pause
+				\item Todo $K_4$ é planar? Todo $K_5$ é planar? \pause
+				\item Todo $K_{2,3}$ é planar? Todo $K_{3,3}$ é planar?
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
