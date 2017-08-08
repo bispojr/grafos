@@ -1,0 +1,162 @@
+\documentclass[xcolor=dvipsnames,table]{beamer}
+
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{fancybox}
+\usepackage{datetime}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{acronym}
+\usepackage{array}
+
+\newtheorem{definicao}{Definio}
+\newcommand{\tab}{\hspace*{2em}}
+
+\mode<presentation>
+{
+  \definecolor{colortexto}{RGB}{0,0,0}
+ 
+  \setbeamertemplate{background canvas}[vertical shading][ bottom=white!10,top=white!10]
+  \setbeamercolor{normal text}{fg=colortexto} 
+
+  \usetheme{Warsaw}
+}
+
+\title{Pontes} 
+
+\author{
+  Esdras Lins Bispo Jr. \\ \url{bispojr@ufg.br}
+  } 
+ \institute{
+  Teoria de Grafos \\Bacharelado em Ciência da Computação}
+\date{\textbf{08 de agosto de 2017} }
+
+\logo{\includegraphics[width=1cm]{images/ufgJataiLogo.png}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\AtBeginSection{
+		\begin{frame}{Sumário}%[allowframebreaks]{Sumário}
+    		\tableofcontents[currentsection]
+    		%\tableofcontents[currentsection, hideothersubsections]
+		\end{frame}
+	}
+
+	\begin{frame}{Plano de Aula}
+		\tableofcontents
+		%\tableofcontents[hideallsubsections]
+	\end{frame}
+    
+   \begin{frame}{Pensamento}
+   	\begin{columns}
+   		\column{.4\textwidth}  		
+   		\begin{center}
+   			\includegraphics[height=.5\textheight]{images/desconhecido.jpg}
+   		\end{center}
+   		\column{.6\textwidth}  		
+   		\begin{block}{Frase}
+   			\begin{center}
+   				{\large A árvore quando está sendo cortada, observa com tristeza que o cabo do machado é de madeira.}
+   			\end{center}
+   		\end{block}		  		
+   		\begin{block}{Quem?}
+   			\begin{center}
+   				{\bf Provérbio Árabe}
+   			\end{center}
+   		\end{block}
+   	\end{columns}
+   \end{frame}
+    
+    \section{Revisão}
+	\subsection{Cortes}
+	\begin{frame}{Cortes}
+		\begin{block}{Definição}
+			\begin{itemize}
+				\item Suponha que $X$ é um conjunto de vértices de um grafo $G$.   
+				\item O {\bf corte} associado a $X$ (ou {\bf franja} de $X$) é o conjunto de todas as arestas que têm uma ponta em $X$ e outra em $V_G \setminus X$.
+			\end{itemize}
+		\end{block}   
+		\begin{block}{Notação}
+			O corte associado a $X$ será denotado por
+			\begin{center}
+				$\partial_G (X)$
+			\end{center}
+		\end{block}   
+		\begin{alertblock}{Outros autores...}
+			Alguns preferem escrever $\delta(X)$ ou $\nabla(X)$.
+		\end{alertblock}
+	\end{frame}
+	
+	\begin{frame}{Cortes}
+		\begin{block}{Cortes triviais}
+			\begin{itemize}
+				\item $\partial( \emptyset )$;   
+				\item $\partial( V_G )$.
+			\end{itemize}
+		\end{block}   
+		\begin{block}{Corolário}
+			$|\partial(\{v\})| = d(v)$
+		\end{block}   
+		\begin{block}{Grau de um conjunto}
+			\begin{itemize}
+				\item Diremos que $|\partial(X)|$ é o {\bf grau} de $X$;   
+				\item Denotamos este número como se segue:
+				\begin{center}
+					$d(X) := |\partial(X)|$
+				\end{center}
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Cortes}
+		\begin{block}{Corte - Definição}
+			Um {\bf corte} ({\it = cut = coboundary}) em um grafo $G$ é qualquer conjunto da forma $\partial(X)$, em que $X$ é um subconjunto de $V_G$.
+		\end{block}   
+		\begin{alertblock}{Cuidado}
+			Um corte é um conjunto de arestas, não de vértices.
+		\end{alertblock}
+	\end{frame}
+
+	\section{Pontes}
+	\begin{frame}{Pontes}
+		\begin{block}{Definição}
+			Uma {\bf ponte} ($bridge$) em um grafo $G$ é qualquer aresta $e$ tal que 
+			\begin{center}
+				$c(G - e) > c(G)$,  
+			\end{center}
+			ou seja, $G - e$ tem mais componentes que $G$.				
+		\end{block} \pause
+		\begin{block}{Outros nomes}
+			\begin{itemize}
+				\item {\bf istmo} ({\it isthmus}), ou 
+				\item {\bf aresta de corte} ({\it cut edge}).
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Pontes}
+		\begin{block}{Corolário}
+			Uma aresta $a$ é ponte se e somente se o conjunto $\{ a \}$ é um corte do um grafo.
+		\end{block} \pause
+		\begin{block}{Pontes $\times$ Circuitos}
+			Em qualquer grafo, toda aresta é uma ponte ou pertence a um circuito, mas não ambos (E. 1.199).
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+\end{document}
