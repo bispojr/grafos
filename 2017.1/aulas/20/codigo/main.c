@@ -4,20 +4,17 @@
 
 int main (void){
 
-    Grafo *g = caminho(50);
+    //Grafo *g = caminho(4);
     Grafo *h = malloc(sizeof (Grafo));
 
-    printf("Eh caminho: %d", ehCaminho(g));
+    //printf("\nEh conexo: %d\n\n", ehConexo(g));
 
-    inicializar(h, "Caminho 4", 5);
-    inserirAresta(h, 0, 3);
-    inserirAresta(h, 3, 2);
-    inserirAresta(h, 2, 4);
-    inserirAresta(h, 3, 1);
+    inicializar(h, "Arvore Peh de Pato", 4);
+    inserirAresta(h, 0, 2);
+    inserirAresta(h, 2, 3);
+    inserirAresta(h, 2, 1);
 
-    h->nome = "Caminho (Comp. 4)";
-
-    printf("\nEh caminho: %d", ehCaminho(h));
+    printf("\n\nEh conexo: %d\n\n", ehConexo(h));
 
     //exibir(h);
 

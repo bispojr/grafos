@@ -237,23 +237,45 @@ int ehCaminho(Grafo *g){
         return ehCaminho(h);
     }
 }
+int ehConexo(Grafo *g){
 
+    int parteConexa[g->n];
+    int naoVisitado[g->n];
+
+    for(int i=0; i < g->n; i++){
+        parteConexa[i] = 0;
+        naoVisitado[i] = 0;
+    }
+
+    //Escolher um vértice para iniciar o processo
+    //de crescimento do subgrafo maximal a partir do K_1
+    parteConexa[0] = 1;
+    naoVisitado[0] = 1;
+    int novoVertice = 1;
+    int nParteConexa = 1;
+
+    while(novoVertice == 1){
+        novoVertice = 0;
+        for(int i=0; i < g->n; i++){
+            if(naoVisitado[i] == 1){
+                for(int j=0; j < g->n; j++){
+                    if(g->adj[i][j] == 1){
+                        if(parteConexa[j] == 0){
+                            parteConexa[j] = 1;
+                            naoVisitado[j] = 1;
+                            novoVertice = 1;
+                            nParteConexa++;
+                        }
+                    }
+                }
+                naoVisitado[i] = 0;
+            }
+        }
+    }
+
+    if(nParteConexa == g->n)
+        return 1;
+    else
+        return 0;
+}
 #endif // GRAFO_H_INCLUDED
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
