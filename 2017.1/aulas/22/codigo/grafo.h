@@ -278,4 +278,61 @@ int ehConexo(Grafo *g){
     else
         return 0;
 }
+int ehPonte(Grafo *g, int v, int w){
+
+    if(v >= g->n) return 0;
+    if(w >= g->n) return 0;
+    if(g->adj[v][w] == 0) return -1;
+
+    int conjuntoX[g->n];
+    int naoVisitado[g->n];
+
+    for(int i=0; i < g->n; i++){
+        conjuntoX[i] = -1;
+        naoVisitado[i] = -1;
+    }
+
+    conjuntoX[v] = 0;
+    conjuntoX[w] = 1;
+    naoVisitado[v] = 1;
+    naoVisitado[w] = 1;
+
+    int novoVertice = 1;
+
+    while(novoVertice == 1){
+        novoVertice = 0;
+        for(int i=0; i < g->n; i++){
+            if(naoVisitado[i] == 1){
+                for(int j=0; j < g->n; j++){
+                    if(g->adj[i][j] == 1){
+                        if(conjuntoX[i] == 0){
+                            if(conjuntoX[j] == -1){
+                                conjuntoX[j] = 0;
+                                naoVisitado[j] = 1;
+                                novoVertice = 1;
+                            }
+                            if(conjuntoX[j] == 1 && j!=w){
+                                return 0;
+                            }
+                        }
+                        if(conjuntoX[i] == 1){
+                            if(conjuntoX[j] == -1){
+                                conjuntoX[j] = 1;
+                                naoVisitado[j] = 1;
+                                novoVertice = 1;
+                            }
+                            if(conjuntoX[j] == 0 && j!=v){
+                                return 0;
+                            }
+                        }
+                    }
+                }
+                naoVisitado[i] = 0;
+            }
+        }
+    }
+
+    return 1;
+
+}
 #endif // GRAFO_H_INCLUDED
